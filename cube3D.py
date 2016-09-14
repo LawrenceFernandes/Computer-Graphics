@@ -43,7 +43,7 @@ faces = (
 
 colors = ( (1,0,0),(1,1,0),(0,1,0),(0,1,1),(0,0,1),(1,0,1),(0.5,1,1),(1,0,0.5) )
 
-def Cubo():
+def Cube():
     glBegin(GL_QUADS)
     i = 0
     for face in faces:
@@ -64,7 +64,7 @@ def Cubo():
 def display():
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
     glRotatef(2,1,3,0)
-    Cubo()
+    Cube()
     glutSwapBuffers()
  
 def timer(i):
