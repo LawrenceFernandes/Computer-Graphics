@@ -67,7 +67,7 @@ faces = (
 colors = ( (1,0,0),(1,1,0),(0,1,0),(0,1,1),(0,0,1),(1,0,1),(0.5,1,1),(1,0,0.5) )
 
 def cube_faceless():
-    """This function creates a faceless cube."""
+    """This function creates a faceless cube with colored edges."""
     glBegin(GL_LINES)
     for edge in edges:
         for vertex in edge:
