@@ -113,7 +113,7 @@ def timer(i):
     glutTimerFunc(50,timer,1)
 
 def keyboard(key, x, y):
-    """This function creates keyboard controls."""
+    """This function creates keyboard controls for the user."""
     rotate_y = 0.0
     rotate_x = 0.0
     scale = 2.0
