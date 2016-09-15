@@ -94,16 +94,16 @@ def cube_wfaces():
     glEnd()
 
 def display():
-    """This function call the OpenGL functions to actually display something."""
+    """This function call the OpenGL functions to actually display something"""
     # Clear the color and depth buffers
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
     # ... render stuff in here ...
     # It will go to an off-screen frame buffer.
     glRotatef(2,1,3,0)
     # Selecting the function to draw the cube
-    if option=="-f":
+    if option=="-f" or option=="-f -c":
         cube_faceless()
-    else:
+    elif option=="-m" or option=="-m -c":
         cube_wfaces()
     glutSwapBuffers()
 
