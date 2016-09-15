@@ -94,7 +94,7 @@ def cube_wfaces():
     glEnd()
 
 def display():
-    """This function call the OpenGL functions to display something"""
+    """This function call the OpenGL functions to actually display something."""
     # Clear the color and depth buffers
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
     # ... render stuff in here ...
