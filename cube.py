@@ -6,6 +6,8 @@
 # Copyright (C) 2016 Lawrence Fernandes
 
 """ This module draws a cube with its faces (polygon mesh) or without them.
+    The cube is rotated on the screen. It can be done automatically or by the user,
+    deppending on the arguments the program takes.
 """
 #Import Python module
 import sys
@@ -17,7 +19,11 @@ try:
 except:
     print ("OpenGL wrapper for Python not found.")
 
+#Input validation
 option = ' '.join(sys.argv[1:])
+if option not in ("-f", "-m", "-f -c", "-m -c"):
+    print ("\nInvalid option! Please, try again.")
+    sys.exit(1)
 
 #Define the location (x,y,z) of each vertex
 vertices = (
@@ -97,17 +103,30 @@ def display():
     # Selecting the function to draw the cube
     if option=="-f":
         cube_faceless()
-    elif option=="-m":
-        cube_wfaces()
     else:
-        print ("\nInvalid option! Please, try again.")
-        sys.exit(1)
+        cube_wfaces()
     glutSwapBuffers()
 
 def timer(i):
-    """This function creates a timer to rotate the cube."""
+    """This function creates a timer to automatically rotate the cube."""
     glutPostRedisplay()
     glutTimerFunc(50,timer,1)
+
+def keyboard(key, x, y):
+    """This function creates keyboard controls."""
+    rotate_y = 0.0
+    rotate_x = 0.0
+    scale = 2.0
+    # Rotate cube according to keys pressed
+    if key == GLUT_KEY_RIGHT:
+        rotate_y += 10
+    if key == GLUT_KEY_LEFT:
+        rotate_y -= 10
+    if key == GLUT_KEY_UP:
+        rotate_x += 10
+    if key == GLUT_KEY_DOWN:
+        rotate_x -= 10
+    glutPostRedisplay()
 
 # MAIN
 glutInit(sys.argv)
@@ -126,6 +145,12 @@ glClearColor(0.,0.,0.,1.)
 gluPerspective(45,800.0/600.0,0.1,50.0)
 glTranslatef(0.0,0.0,-10)
 glRotatef(0,0,0,0)
-glutTimerFunc(50,timer,1)
+# Switching the rotation options
+if option=="-f -c" or option=="-m -c":
+    # The callback function for keyboard controls
+    glutSpecialFunc(keyboard)
+else:
+    # The callback function for the timer
+    glutTimerFunc(50,timer,1)
 # Run the GLUT main loop until the user closes the window.
 glutMainLoop()
