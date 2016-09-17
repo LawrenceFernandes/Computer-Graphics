@@ -9,7 +9,7 @@
     The cube is rotated on the screen. It can be done automatically or by the user,
     deppending on the arguments the program takes.
 """
-#Import Python module
+# Import Python modules
 import sys
 # Import OpenGL modules
 try:
