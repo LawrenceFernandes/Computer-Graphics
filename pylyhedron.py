@@ -1,10 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-# File Name: tui.py
 # Author: Lawrence Fernandes
 # Copyright (C) 2016 Lawrence Fernandes
-
 """ This module is the terminal user interface (TUI) of the app.
     It calls the other modules to draw the polyhedron requested by the user.
     The other modules must be located on the same directory.
@@ -14,13 +11,15 @@ import os, sys
 from time import gmtime, strftime
 
 def menu():
+    """ This function creates an options menu."""
     print('\nUsage: %s [-options]' % sys.argv[0])
     print('where the options are:')
     print('  -m    Draws the polygon mesh (polyhedron with vertices, edges and faces).')
     print('  -f    Draws the polyhedron without its faces, just vertices and edges.')
     print('  -c    Grants the user keyboard control over the rotation of the polyhedron.')
 
-if __name__ == '__main__':
+def main():
+    """ This is the main function of the module."""
     print('\nStarting pylyhedron 1.0 at %s' % strftime("%Y-%m-%d %H:%M:%S", gmtime()))
     print('(c) 2016 Lawrence Fernandes')
     option = ' '.join(sys.argv[1:])
@@ -41,6 +40,9 @@ if __name__ == '__main__':
         elif option == "Q":
             break
         else:
-            print ("\nInvalid option! Please, try again.")
-            menu()
-            sys.exit(1)
+            if option not in ("-f", "-m", "-f -c", "-m -c"):
+                print ("\nInvalid option! Please, try again.")
+                sys.exit(1)
+
+if __name__ == '__main__':
+    main()
