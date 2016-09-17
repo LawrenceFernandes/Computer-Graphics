@@ -30,6 +30,7 @@ def main():
     while not Done:
         if option=="-c":
             print ("\nInvalid usage! Needs to specify the type of drawing.")
+            menu()
             break
         elif option not in {'-m','-f','-f -c','-m -c','-c -f','-c -m'}:
             print ("\nInvalid option! Please, try again.")
