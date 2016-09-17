@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+#
 # File Name: cube.py
 # Author: Lawrence Fernandes
 # Copyright (C) 2016 Lawrence Fernandes
-
+#
 """ This module draws a cube with its faces (polygon mesh) or without them.
     The cube is rotated on the screen. It can be done automatically or by the user,
     deppending on the arguments the program takes.
@@ -19,12 +19,10 @@ try:
 except:
     print ("OpenGL wrapper for Python not found.")
 
-#Input validation
+#Input arguments
 option = ' '.join(sys.argv[1:])
-if option not in ("-f", "-m", "-f -c", "-m -c"):
-    print ("\nInvalid option! Please, try again.")
-    sys.exit(1)
 
+# Global variables
 #Define the location (x,y,z) of each vertex
 vertices = (
     ( 1,-1,-1),
@@ -94,11 +92,9 @@ def cube_wfaces():
     glEnd()
 
 def display():
-    """This function call the OpenGL functions to actually display something"""
+    """This function call the OpenGL functions to actually display something."""
     # Clear the color and depth buffers
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-    # ... render stuff in here ...
-    # It will go to an off-screen frame buffer.
     glRotatef(2,1,3,0)
     # Selecting the function to draw the cube
     if option=="-f" or option=="-f -c":
@@ -128,29 +124,34 @@ def keyboard(key, x, y):
         rotate_x -= 10
     glutPostRedisplay()
 
-# MAIN
-glutInit(sys.argv)
-# Create a double-buffer RGBA window.   (Single-buffering is possible.
-# So is creating an index-mode window.)
-glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE)
-# Create a window, setting its size and title
-glutInitWindowSize(800,600)
-glutCreateWindow("Cube")
-# Set the display callback.  You can set other callbacks for keyboard and
-# mouse events.
-glutDisplayFunc(display)
-glEnable(GL_MULTISAMPLE)
-glEnable(GL_DEPTH_TEST)
-glClearColor(0.,0.,0.,1.)
-gluPerspective(45,800.0/600.0,0.1,50.0)
-glTranslatef(0.0,0.0,-10)
-glRotatef(0,0,0,0)
-# Switching the rotation options
-if option=="-f -c" or option=="-m -c":
-    # The callback function for keyboard controls
-    glutSpecialFunc(keyboard)
-else:
-    # The callback function for the timer
-    glutTimerFunc(50,timer,1)
-# Run the GLUT main loop until the user closes the window.
-glutMainLoop()
+def main():
+    """This function acts as the main function of the program."""
+    # This statement clear the screen.
+    glutInit(sys.argv)
+    # Create a double-buffer RGBA window.
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE)
+    # Uses GLUT to create a graphics window and gives the a size of it.
+    glutInitWindowSize(800,600)
+    # Set the title of the graphics window.
+    glutCreateWindow("Cube")
+    # The callback function for the graphics scene.
+    glutDisplayFunc(display)
+    glEnable(GL_MULTISAMPLE)
+    glEnable(GL_DEPTH_TEST)
+    glClearColor(0.,0.,0.,1.)
+    gluPerspective(45,800.0/600.0,0.1,50.0)
+    glTranslatef(0.0,0.0,-10)
+    glRotatef(0,0,0,0)
+    # Switching the rotation options for the cube.
+    if option in {'-f -c','-f-c','-m -c','-m-c','-c -f','-c-f','-c -m','-c-m'}:
+        # The callback function for keyboard controls.
+        glutSpecialFunc(keyboard)
+    else:
+        # The callback function for the timer.
+        glutTimerFunc(50,timer,1)
+    # Run the GLUT main loop until the user closes the graphics window.
+    glutMainLoop()
+
+# Standard boilerplate to call the main function to begin the program.
+if __name__ == '__main__':
+    main()
