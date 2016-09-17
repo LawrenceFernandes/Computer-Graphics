@@ -1,7 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# File Name: tui.py
+#
 # Author: Lawrence Fernandes
 # Copyright (C) 2016 Lawrence Fernandes
+#
 """ This module is the terminal user interface (TUI) of the app.
     It calls the other modules to draw the polyhedron requested by the user.
     The other modules must be located on the same directory.
@@ -12,8 +15,8 @@ from time import gmtime, strftime
 
 def menu():
     """ This function creates an options menu."""
-    print('\nUsage: %s [-options]' % sys.argv[0])
-    print('where the options are:')
+    print('\nUsage: %s [-option] [-option]' % sys.argv[0])
+    print('where the options must be separeted by a space and are the following:')
     print('  -m    Draws the polygon mesh (polyhedron with vertices, edges and faces).')
     print('  -f    Draws the polyhedron without its faces, just vertices and edges.')
     print('  -c    Grants the user keyboard control over the rotation of the polyhedron.')
@@ -25,24 +28,17 @@ def main():
     option = ' '.join(sys.argv[1:])
     Done = False
     while not Done:
-        if option=="-m":
-            os.system("python cube.py -m")
+        if option=="-c":
+            print ("\nInvalid usage! Needs to specify the type of drawing.")
             break
-        elif option == '-m -c':
-            os.system('python cube.py -m -c')
-            break
-        elif option == '-f':
-            os.system('python cube.py -f')
-            break
-        elif option == '-f -c':
-            os.system('python cube.py -f -c')
-            break    
-        elif option == "Q":
+        elif option not in {'-m','-f','-f -c','-m -c','-c -f','-c -m'}:
+            print ("\nInvalid option! Please, try again.")
+            menu()
             break
         else:
-            if option not in ("-f", "-m", "-f -c", "-m -c"):
-                print ("\nInvalid option! Please, try again.")
-                sys.exit(1)
+            os.system("python cube.py " + option)
+            break
 
+# Standard boilerplate to call the main function to begin the program.
 if __name__ == '__main__':
     main()
