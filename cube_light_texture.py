@@ -18,7 +18,6 @@ texture = []
 def load_texture():
     """Load an image file as a 2D texture"""
     global texture
-    #texture = "textura"+str(random.randint(1,3))+".rgb"
     texture = sys.argv[1]
     image = open(texture).read()
     ix = 256
